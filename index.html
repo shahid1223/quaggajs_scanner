@@ -8,7 +8,8 @@
 </head>
 <body>
 	<h1>QR Code Scanner</h1>
-	<div id="scanner-container"></div>
+	<video id="scanner-container" width="640" height="480"></video>
+
 	<script>
         function startScanner() {
             const video = document.getElementById('scanner-container');
@@ -22,7 +23,7 @@
                 
                 // Initialize the video stream
                 codeReader
-                  .decodeFromVideoDevice(videoInputDevice.deviceId, 'video')
+                  .decodeFromVideoDevice(videoInputDevice.deviceId, 'scanner-container')
                   .then((result) => {
                     // Handle the scanned barcode result
                     alert(result);
