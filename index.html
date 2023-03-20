@@ -4,36 +4,40 @@
 	<title>QR Code Scanner</title>
 	<!-- Include QuaggaJS library -->
     <link rel="stylesheet" href="style.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+	<script src="https://unpkg.com/@zxing/library@0.23.0"></script>
 </head>
 <body>
 	<h1>QR Code Scanner</h1>
 	<div id="scanner-container"></div>
 	<script>
-		// Configure QuaggaJS with desired settings
-		Quagga.init({
-			inputStream : {
-				name : "Live",
-				type : "LiveStream",
-				target: document.querySelector('#scanner-container')
-			},
-			decoder : {
-                readers : ["code_128_reader", "ean_reader", "upc_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "qr_reader", "data_matrix_reader", "pdf417_reader"]
-			}
-		}, function(err) {
-			if (err) {
-				alert(err);
-				return
-			}
-			alert("Initialization finished. Ready to start");
-			Quagga.start();
-		});
-
-		// Add event listener for when a barcode is detected
-		Quagga.onDetected(function(result) {
-			alert("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-			// Do something with the barcode data
-		});
+        function startScanner() {
+            const video = document.getElementById('scanner-container');
+            const codeReader = new ZXing.BrowserQRCodeReader();
+            
+            codeReader
+              .listVideoInputDevices()
+              .then((videoInputDevices) => {
+                // Choose the first video input device
+                const videoInputDevice = videoInputDevices[0];
+                
+                // Initialize the video stream
+                codeReader
+                  .decodeFromVideoDevice(videoInputDevice.deviceId, 'video')
+                  .then((result) => {
+                    // Handle the scanned barcode result
+                    alert(result);
+                  })
+                  .catch((err) => {
+                    // Handle errors
+                    alert(err);
+                  });
+              })
+              .catch((err) => {
+                // Handle errors
+                alert(err);
+              });
+          }
+          
 	</script>
 </body>
 </html>
