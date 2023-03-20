@@ -15,7 +15,7 @@ Quagga.init({
       return;
     }
     console.log("QuaggaJS ready to start.");
-    console.log("QuaggaJS ready to start.");
+    alert("QuaggaJS ready to start.");
     Quagga.start();
   });
   
