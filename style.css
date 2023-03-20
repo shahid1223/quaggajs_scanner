@@ -1,0 +1,15 @@
+#video {
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+    background-color: black;
+  }
+  
+  #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border: 2px solid red;
+  }
+  
