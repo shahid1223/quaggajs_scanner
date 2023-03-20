@@ -2,7 +2,7 @@ Quagga.init({
     inputStream : {
       name : "Live",
       type : "LiveStream",
-      target: document.querySelector('#yourElement')    // Or '#yourElement' (optional)
+      target: document.querySelector('#video')    // Or '#yourElement' (optional)
     },
     decoder : {
       readers : ["code_128_reader"]
