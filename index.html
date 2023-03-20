@@ -21,16 +21,16 @@
 			}
 		}, function(err) {
 			if (err) {
-				console.log(err);
+				alert(err);
 				return
 			}
-			console.log("Initialization finished. Ready to start");
+			alert("Initialization finished. Ready to start");
 			Quagga.start();
 		});
 
 		// Add event listener for when a barcode is detected
 		Quagga.onDetected(function(result) {
-			console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+			alert("Barcode detected and processed : [" + result.codeResult.code + "]", result);
 			// Do something with the barcode data
 		});
 	</script>
