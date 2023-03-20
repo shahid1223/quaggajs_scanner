@@ -11,8 +11,10 @@ Quagga.init({
   }, function(err) {
     if (err) {
       console.error(err);
+      alert(err)
       return;
     }
+    console.log("QuaggaJS ready to start.");
     console.log("QuaggaJS ready to start.");
     Quagga.start();
   });
