@@ -36,15 +36,15 @@
             locate: true
         }, function(err) {
             if (err) {
-                console.log(err, " error");
+                alert(err, " error");
                 return
             }
-            console.log("QuaggaJS initialized");
+            alert("QuaggaJS initialized");
             Quagga.start();
         });
         // Register listener for barcode detection
         Quagga.onDetected(function(result) {
-            console.log("Barcode detected", result);
+            alert("Barcode detected", result);
             // Do something with the result
         });
     </script>
