@@ -14,6 +14,7 @@
             inputStream : {
                 name : "Live",
                 type : "LiveStream",
+                target: document.querySelector('#scanner-container'),
                 constraints: {
                     width: 640,
                     height: 480,
@@ -35,7 +36,7 @@
             locate: true
         }, function(err) {
             if (err) {
-                console.log(err);
+                console.log(err, " error");
                 return
             }
             console.log("QuaggaJS initialized");
