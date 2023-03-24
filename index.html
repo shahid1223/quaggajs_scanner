@@ -1,52 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Barcode Scanner</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-</head>
-<body>
-    <h1>Barcode Scanner</h1>
-    <div id="scanner-container"></div>
+  <head>
+    <title>Barcode Reader</title>
+  </head>
+  <body>
+    <video id="video" width="300" height="200"></video>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxingjs/0.14.3/zxing.min.js"></script>
     <script>
-        // Initialize QuaggaJS
-        Quagga.init({
-            inputStream : {
-                name : "Live",
-                type : "LiveStream",
-                target: document.querySelector('#scanner-container'),
-                constraints: {
-                    width: 1000,
-                    height: 1000,
-                    facingMode: "environment"
-                }
-            },
-            decoder : {
-                readers : ["code_128_reader"]
-            },
-            locator: {
-                patchSize: "medium",
-                halfSample: true
-            },
-            numOfWorkers: 4,
-            decoderConfig: {
-                drawBoundingBox: true,
-                drawScanline: true
-            },
-            locate: true
-        }, function(err) {
-            if (err) {
-                alert(err, " error");
-                return
-            }
-            alert("QuaggaJS initialized");
-            Quagga.start();
+      const video = document.getElementById("video");
+
+      navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+        video.srcObject = stream;
+        video.play();
+
+        const codeReader = new ZXing.BrowserBarcodeReader();
+        codeReader.decodeFromVideoElement(video, (result, error) => {
+          if (result) {
+            console.log(result.text);
+          }
         });
-        // Register listener for barcode detection
-        Quagga.onDetected(function(result) {
-            alert("Barcode detected", result);
-            // Do something with the result
-        });
+      });
     </script>
-</body>
+  </body>
 </html>
