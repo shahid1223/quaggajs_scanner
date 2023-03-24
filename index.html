@@ -1,40 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>QR Code Scanner</title>
-	<!-- Include QuaggaJS library -->
-    <link rel="stylesheet" href="style.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Barcode Scanner</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 </head>
 <body>
-	<h1>QR Code Scanner</h1>
-	<div id="scanner-container"></div>
-	<script>
-		// Configure QuaggaJS with desired settings
-		Quagga.init({
-			inputStream : {
-				name : "Live",
-				type : "LiveStream",
-				target: document.querySelector('#scanner-container')
-			},
-			decoder : {
-                readers: ["code_128_reader"]
-			}
-		}, function(err) {
-			if (err) {
-				alert(err);
-				return
-			}
-			alert("Initialization finished. Ready to start");
-			Quagga.start();
-		});
-
-		// Add event listener for when a barcode is detected
-		Quagga.onDetected(function(result) {
-			//alert("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-            alert("Result")
-			// Do something with the barcode data
-		});
-	</script>
+    <h1>Barcode Scanner</h1>
+    <div id="scanner-container"></div>
+    <script>
+        // Initialize QuaggaJS
+        Quagga.init({
+            inputStream : {
+                name : "Live",
+                type : "LiveStream",
+                constraints: {
+                    width: 640,
+                    height: 480,
+                    facingMode: "environment"
+                }
+            },
+            decoder : {
+                readers : ["code_128", "ean", "upc", "code_39", "codabar", "itf", "code_93", "msi", "pzn", "qrcode", "datamatrix", "pdf417"]
+            },
+            locator: {
+                patchSize: "medium",
+                halfSample: true
+            },
+            numOfWorkers: 4,
+            decoderConfig: {
+                drawBoundingBox: true,
+                drawScanline: true
+            },
+            locate: true
+        }, function(err) {
+            if (err) {
+                console.log(err);
+                return
+            }
+            console.log("QuaggaJS initialized");
+            Quagga.start();
+        });
+        // Register listener for barcode detection
+        Quagga.onDetected(function(result) {
+            console.log("Barcode detected", result);
+            // Do something with the result
+        });
+    </script>
 </body>
 </html>
