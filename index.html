@@ -4,7 +4,7 @@
     <title>Barcode Reader</title>
   </head>
   <body>
-    <video id="video" width="300" height="200"></video>
+    <video id="video" width="1000" height="1000"></video>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxingjs/0.14.3/zxing.min.js"></script>
     <script>
       const video = document.getElementById("video");
@@ -16,7 +16,7 @@
         const codeReader = new ZXing.BrowserBarcodeReader();
         codeReader.decodeFromVideoElement(video, (result, error) => {
           if (result) {
-            console.log(result.text);
+            alert(result.text);
           }
         });
       });
